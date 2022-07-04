@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 /**
  * Defines the panel in which the user selects which Player plays first.
  * 
- * @author Amber Nicholasa
+ * @author Amber Nicholas
  * @version 7.4.22
  *
  */

@@ -9,11 +9,13 @@ import edu.westga.cs6910.mancala.model.strategies.NearStrategy;
 import edu.westga.cs6910.mancala.model.strategies.RandomStrategy;
 import edu.westga.cs6910.mancala.model.strategies.SelectStrategy;
 import edu.westga.cs6910.mancala.model.Game;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -53,7 +55,9 @@ public class MancalaMenuBar {
 
 		Menu mnuSettings = this.createStrategyMenu();
 
-		mnuMain.getMenus().addAll(mnuFile, mnuSettings);
+		Menu mnuHelp = this.createHelpMenu();
+
+		mnuMain.getMenus().addAll(mnuFile, mnuSettings, mnuHelp);
 		vbxMenuHolder.getChildren().addAll(mnuMain);
 
 		return vbxMenuHolder;
@@ -140,6 +144,36 @@ public class MancalaMenuBar {
 
 		mnuFile.getItems().addAll(mnuNew, mnuExit);
 		return mnuFile;
+	}
+
+	private Menu createHelpMenu() {
+		Menu mnuHelp = new Menu("_Help");
+		mnuHelp.setMnemonicParsing(true);
+
+		MenuItem mnuContents = new MenuItem("_Contents");
+		mnuContents.setMnemonicParsing(true);
+		mnuContents.setAccelerator(new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN));
+		mnuContents.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				MancalaMenuBar.this.helpDialog.setShouldShowHelpDialog(true);
+				MancalaMenuBar.this.helpDialog.showHelpDialog();
+			}
+		});
+
+		MenuItem mnuAbout = new MenuItem("_About");
+		mnuAbout.setMnemonicParsing(true);
+		mnuAbout.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN));
+		mnuAbout.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				Alert message = new Alert(AlertType.INFORMATION);
+				message.setContentText("Game created: July 4, 2022. \nEditor: Amber Nicholas");
+				message.show();
+			}
+		});
+		mnuHelp.getItems().addAll(mnuContents, mnuAbout);
+		return mnuHelp;
 	}
 
 }

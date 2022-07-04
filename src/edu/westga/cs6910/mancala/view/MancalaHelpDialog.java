@@ -29,8 +29,14 @@ public class MancalaHelpDialog {
 		this.shouldShowHelpDialog = this.showHelpDialog();
 	}
 
+	public void setShouldShowHelpDialog(boolean shouldShow) {
+		this.shouldShowHelpDialog = shouldShow;
+	}
+
 	/**
-	 * Alerts the user of rules. Allows the user to decide if these rules should be displayed at the beginning of the game.
+	 * Alerts the user of rules. Allows the user to decide if these rules should be
+	 * displayed at the beginning of the game.
+	 * 
 	 * @return - answer type of user
 	 */
 	public boolean showHelpDialog() {
