@@ -67,41 +67,11 @@ public class MancalaMenuBar {
 		Menu mnuSettings = new Menu("_Computer Player");
 		mnuSettings.setMnemonicParsing(true);
 
-		ToggleGroup tglStrategy = new ToggleGroup();
+		RadioMenuItem mnuNear = this.addStrategyItem("N_ear", KeyCode.E, new NearStrategy());
 
-		RadioMenuItem mnuNear = new RadioMenuItem("N_ear");
-		mnuNear.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.SHORTCUT_DOWN));
-		mnuNear.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				MancalaMenuBar.this.theGame.getComputerPlayer().setStrategy(new NearStrategy());
-			}
-		});
+		RadioMenuItem mnuFar = this.addStrategyItem("F_ar", KeyCode.A, new FarStrategy());
 
-		mnuNear.setMnemonicParsing(true);
-		mnuNear.setToggleGroup(tglStrategy);
-
-		RadioMenuItem mnuFar = new RadioMenuItem("F_ar");
-		mnuFar.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN));
-		mnuFar.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				MancalaMenuBar.this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
-			}
-		});
-		mnuFar.setMnemonicParsing(true);
-		mnuFar.setToggleGroup(tglStrategy);
-
-		RadioMenuItem mnuRandom = new RadioMenuItem("_Random");
-		mnuRandom.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
-		mnuRandom.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent arg0) {
-				MancalaMenuBar.this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
-			}
-		});
-		mnuRandom.setMnemonicParsing(true);
-		mnuRandom.setToggleGroup(tglStrategy);
+		RadioMenuItem mnuRandom = this.addStrategyItem("_Random", KeyCode.R, new RandomStrategy());
 
 		SelectStrategy currentStrategy = this.theGame.getComputerPlayer().getStrategy();
 		if (currentStrategy.getClass() == NearStrategy.class) {
@@ -116,6 +86,24 @@ public class MancalaMenuBar {
 		return mnuSettings;
 	}
 
+	private RadioMenuItem addStrategyItem(String shortCutText, KeyCode key, SelectStrategy strategyType) {
+		ToggleGroup tglStrategy = new ToggleGroup();
+
+		RadioMenuItem mnu = new RadioMenuItem(shortCutText);
+		mnu.setAccelerator(new KeyCodeCombination(key, KeyCombination.SHORTCUT_DOWN));
+		mnu.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				MancalaMenuBar.this.theGame.getComputerPlayer().setStrategy(strategyType);
+			}
+		});
+
+		mnu.setMnemonicParsing(true);
+		mnu.setToggleGroup(tglStrategy);
+
+		return mnu;
+	}
+
 	private Menu createFileMenu() {
 		Menu mnuFile = new Menu("_Game");
 		mnuFile.setMnemonicParsing(true);
@@ -123,19 +111,7 @@ public class MancalaMenuBar {
 		MenuItem mnuNew = new MenuItem("_New");
 		mnuNew.setMnemonicParsing(true);
 		mnuNew.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.SHORTCUT_DOWN));
-		mnuNew.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				MancalaMenuBar.this.helpDialog.showHelpDialog();
-				if (MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().isHumanFirst()) {
-					MancalaMenuBar.this.theGame.startNewGame(MancalaMenuBar.this.theGame.getHumanPlayer());
-				} else if (MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().isComputerFirst()) {
-					MancalaMenuBar.this.theGame.startNewGame(MancalaMenuBar.this.theGame.getComputerPlayer());
-				} else if (MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().isRandomFirst()) {
-					MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().chooseRandomPlayer();
-				}
-			}
-		});
+		mnuNew.setOnAction(new MnuNewListener());
 
 		MenuItem mnuExit = new MenuItem("E_xit");
 		mnuExit.setMnemonicParsing(true);
@@ -174,6 +150,27 @@ public class MancalaMenuBar {
 		});
 		mnuHelp.getItems().addAll(mnuContents, mnuAbout);
 		return mnuHelp;
+	}
+
+	/**
+	 * Defines the listener for New Menu Item.
+	 */
+	private class MnuNewListener implements EventHandler<ActionEvent> {
+		@Override
+		/**
+		 * Sets up user interface and starts a new game. Event handler for a click in
+		 * the new menu item.
+		 */
+		public void handle(ActionEvent event) {
+			MancalaMenuBar.this.helpDialog.showHelpDialog();
+			if (MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().isHumanFirst()) {
+				MancalaMenuBar.this.theGame.startNewGame(MancalaMenuBar.this.theGame.getHumanPlayer());
+			} else if (MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().isComputerFirst()) {
+				MancalaMenuBar.this.theGame.startNewGame(MancalaMenuBar.this.theGame.getComputerPlayer());
+			} else if (MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().isRandomFirst()) {
+				MancalaMenuBar.this.mainPane.getPnChooseFirstPlayer().chooseRandomPlayer();
+			}
+		}
 	}
 
 }
