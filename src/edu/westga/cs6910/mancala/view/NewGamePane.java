@@ -34,7 +34,8 @@ public class NewGamePane extends GridPane {
 
 	/**
 	 * Constructor for NewGamePane
-	 * @param theGame - represents current Game
+	 * 
+	 * @param theGame  - represents current Game
 	 * @param mainPane - represents MancalaPane
 	 */
 	public NewGamePane(Game theGame, MancalaPane mainPane) {
@@ -92,18 +93,36 @@ public class NewGamePane extends GridPane {
 		this.add(this.cmbGoalScore, 1, 0);
 	}
 
+	/**
+	 * Returns true if human player is first
+	 * 
+	 * @return - whether or not human player is first
+	 */
 	public boolean isHumanFirst() {
 		return this.radHumanPlayer.isSelected();
 	}
 
+	/**
+	 * Returns true if computer player is first
+	 * 
+	 * @return - whether or not computer player is first
+	 */
 	public boolean isComputerFirst() {
 		return this.radComputerPlayer.isSelected();
 	}
 
+	/**
+	 * Returns true if random player is first
+	 * 
+	 * @return - whether or not random player is first
+	 */
 	public boolean isRandomFirst() {
 		return this.radRandomPlayer.isSelected();
 	}
 
+	/**
+	 * Chooses a random player to be first at the beginning of a game
+	 */
 	public void chooseRandomPlayer() {
 		if (Math.random() * 10 <= 4) {
 			NewGamePane.this.theGame.startNewGame(NewGamePane.this.theGame.getHumanPlayer());

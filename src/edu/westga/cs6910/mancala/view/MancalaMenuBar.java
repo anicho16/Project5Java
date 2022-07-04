@@ -36,6 +36,12 @@ public class MancalaMenuBar {
 	private MancalaHelpDialog helpDialog;
 	private MancalaPane mainPane;
 
+	/**
+	 * Constructor for the Mancanla Menu Bar
+	 * 
+	 * @param theGame  - represents current Game
+	 * @param mainPane - represents MancalaPane which describes all board panes
+	 */
 	public MancalaMenuBar(Game theGame, MancalaPane mainPane) {
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game object");
@@ -46,6 +52,11 @@ public class MancalaMenuBar {
 		this.mainPane = mainPane;
 	}
 
+	/**
+	 * Creates Menu Bar of all menu items
+	 * 
+	 * @return - Menu Bar
+	 */
 	public VBox createMenu() {
 		VBox vbxMenuHolder = new VBox();
 

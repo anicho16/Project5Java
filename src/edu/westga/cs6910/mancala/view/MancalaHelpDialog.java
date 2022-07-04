@@ -29,6 +29,12 @@ public class MancalaHelpDialog {
 		this.shouldShowHelpDialog = this.showHelpDialog();
 	}
 
+	/**
+	 * Mutator for shouldShowHelpDialog.
+	 * 
+	 * @param shouldShow - set to true if should be shown; false if should not be
+	 *                   shown
+	 */
 	public void setShouldShowHelpDialog(boolean shouldShow) {
 		this.shouldShowHelpDialog = shouldShow;
 	}

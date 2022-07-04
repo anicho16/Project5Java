@@ -51,14 +51,29 @@ public class MancalaPane extends BorderPane {
 		this.setCenter(this.pnContent);
 	}
 
+	/**
+	 * Accessor for pnChooseFirstPlayer pane
+	 * 
+	 * @return - pane which describes choosing first player
+	 */
 	public NewGamePane getPnChooseFirstPlayer() {
 		return this.pnChooseFirstPlayer;
 	}
 
+	/**
+	 * Accessor for pnComputerPlayer pane
+	 * 
+	 * @return - pane which describes Computer side of the board
+	 */
 	public ComputerPane getPnComputerPlayer() {
 		return this.pnComputerPlayer;
 	}
 
+	/**
+	 * Accessor for pnHumanPlayer pane
+	 * 
+	 * @return - pane which describes Human side of the board
+	 */
 	public HumanPane getPnHumanPlayer() {
 		return this.pnHumanPlayer;
 	}
